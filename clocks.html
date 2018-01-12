@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <style>
+  	.hours {
+  		color: red;
+  	}
+
+  	.minutes {
+  		color: blue;
+  	}
+
+  	.seconds {
+  		color: green;
+  	}
+  </style>
+</head>
+<body>
+	<div><span class="hours"></span>:<span class="minutes"></span>:<span class="seconds"></span></div>
+
+	<script>
+		"use strict;"
+
+		let hour, min, sec;
+
+		let	_hour = document.querySelector('.hours'),
+			_min = document.querySelector('.minutes'),
+			_sec = document.querySelector('.seconds');
+
+		let timerID;
+
+		function Time() {
+			let time = new Date();
+
+			hour = time.getHours();
+			if (hour < 10) hour = '0' + hour;
+
+			min = time.getMinutes();
+			if (min < 10) min = '0' + min;
+
+			sec = time.getSeconds();
+			if (sec < 10) sec = '0' + sec;
+
+			_hour.innerHTML = hour;
+			_min.innerHTML = min;
+			_sec.innerHTML = sec;
+		}
+
+		function Start() {
+			timerID = setInterval(Time, 1000);
+			Time();
+		}
+
+		function Stop() {
+			clearInterval(timerID);
+			timerID = null;
+		}
+	</script>
+</body>
+</html>
