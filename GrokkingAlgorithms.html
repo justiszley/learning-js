@@ -47,12 +47,14 @@
 				return binary(arr.slice(0, mid), n);
 
 			return mid;
-		}
+		} // Не рабочая реализация: неверный результат с числами правее выбранного
 
 		// let arr = [1, 2, 3, 4, 5];
 		// console.log(binary(arr, 3));
 		// console.log(binary(arr, 1));
 		// console.log(binary(arr, 4));
+
+		// Быстрая сортировка
 
 		function quicksort(arr) {
 			if (arr.length < 2) return arr;
@@ -65,12 +67,51 @@
 				if (arr[i] > pivot[0]) more.push(arr[i]);
 			}
 
-			return ((quicksort(less)).concat(pivot).concat(quicksort(more)));
+			return ((quicksort(less)).concat(pivot, quicksort(more)));
 		}
 
-		let time = new Date();
-		console.log(quicksort([7,5,3,9,2,6,4,8]));
-		console.log('Время выполнения: ' + (new Date - time));
+		// let time = new Date();
+		// console.log(quicksort([7,5,3,9,2,6,4,8]));
+		// console.log('Время выполнения: ' + (new Date - time));
+
+		// graphs; breadth first search
+
+		const graph = {};
+		graph['you'] = ['alice', 'bob', 'claire'];
+		graph['bob'] = ["anuj", "peggy"];
+		graph["alice"] = ["peggy"];
+		graph["claire"] = ["thom", "jonny"];
+		graph["anuj"] = [];
+		graph["peggy"] = [];
+		graph["thom"] = [];
+		graph["jonny"] = [];
+
+		function search(name) {
+			let search_queue = [];
+			search_queue = search_queue.concat(graph[name]);
+			const searched = {};
+
+			while (search_queue.length) {
+				let person = search_queue.shift();
+				if (!searched[person]) {
+					if (is_person_seller(person)) {
+						console.log(person + ' is a mango seller');
+						return true;
+					} else {
+						search_queue = search_queue.concat(graph[person]);
+						searched[person] = true;
+					}
+				}
+			}
+
+			return false;
+		}
+
+		function is_person_seller(name) {
+			return name[name.length - 1] === 'm';
+		}
+
+		search('you');
 	</script>
 </body>
 </html>
