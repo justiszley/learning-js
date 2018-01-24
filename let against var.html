@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<script>
+		'use strict;'
+
+		const funcs = [];
+		const obj = {
+			'a': 1,
+			'b': 2,
+			'c': 3
+		}
+
+		for (let i in obj) {
+			funcs.push(function() {
+				console.log(i);
+			});
+		}
+
+		funcs.forEach(function(func) {
+			func();
+		});
+	</script>
+</body>
+</html>

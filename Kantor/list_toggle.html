@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <style>
+  	.closed {
+  		display: none;
+  	}
+  </style>
+</head>
+	<body>
+
+	  <span id="title"><span id="list_closed">▶</span><span class="closed" id="list_opened">▼</span> Сладости (нажми меня)!</span>
+
+	  <ul class="closed" id="list">
+	    <li>Торт</li>
+	    <li>Пончик</li>
+	    <li>Пирожное</li>
+	  </ul>
+
+	  <script>
+	  	let title = document.getElementById('title');
+	  	let list = document.getElementById('list');
+	  	let list_opened = document.getElementById('list_opened');
+	  	let list_closed = document.getElementById('list_closed');
+
+	  	title.addEventListener('click', function() {
+	  		list_opened.classList.toggle('closed');
+	  		list_closed.classList.toggle('closed');
+	  		list.classList.toggle('closed');
+	  	});
+	  </script>
+	</body>
+</html>
