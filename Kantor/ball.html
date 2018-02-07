@@ -1,0 +1,75 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <style>
+    #field {
+      width: 200px;
+      height: 150px;
+      border: 10px groove black;
+      background-color: #00FF00;
+      position: relative;
+      overflow: hidden;
+    }
+
+    #ball {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      margin-left: -20px;
+      margin-top: -20px;
+    }
+  </style>
+</head>
+
+<body style="height:2000px">
+
+  Кликните на любое место поля, чтобы мяч перелетел туда.
+  <br> Мяч никогда не вылетит за границы поля.
+
+
+  <div id="field" >
+    <img src="https://js.cx/clipart/ball.svg" id="ball"> . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+    . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+  </div>
+
+  <script>
+    // get elements
+    const ball = document.getElementById('ball');
+    const field = document.getElementById('field');
+
+    // set extra styles
+    field.style.cursor = 'pointer';
+    ball.style.transition = '0.5s';
+
+    const half_ball_length = parseInt(getComputedStyle(ball).width) / 2;
+
+    field.addEventListener('click', handler, true);
+    // field.onclick="handler()"
+
+    function handler(e) {
+      e = e || window.event;
+      console.log(e.offsetX, e.offsetY);
+      console.log(e.clientX, e.clientY);
+
+      if (e.offsetX < half_ball_length) {
+        ball.style.left = half_ball_length + 'px';
+      } else if (e.offsetX > (field.clientWidth - half_ball_length)) {
+        ball.style.left = (field.clientWidth - half_ball_length) + 'px';
+      } else {
+        ball.style.left = e.offsetX + 'px';
+      }
+
+      if (e.offsetY < half_ball_length) {
+        ball.style.top = half_ball_length + 'px';
+      } else if (e.offsetY > (field.clientHeight - half_ball_length)) {
+        ball.style.top = (field.clientHeight - half_ball_length) + 'px';
+      } else {
+        ball.style.top = e.offsetY + 'px';
+    }
+  };
+  </script>
+</body>
+
+</html>

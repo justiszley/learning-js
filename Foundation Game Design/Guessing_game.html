@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Number guessing game</title>
+</head>
+<body>
+	<secrion class="wrapper">
+		<p id="output">I am thinking of a number between 0 and 99</p>
+		<input id="input" type="text" name="value">
+		<button>guess</button>
+	</secrion>
+
+	<script>
+		'use strict;'
+
+		const mysteryNumber = Math.floor(Math.random() * 100);
+		console.log(mysteryNumber);
+		let guess = null;
+		let guessesRemaining = 10;
+		let guessesMade = 0;
+		let gameState = '';
+		let gameWon = false;
+
+		const output = document.getElementById('output');
+		const input = document.getElementById('input');
+		const button = document.querySelector('button');
+		button.style.cursor = 'pointer';
+
+		button.addEventListener('click', clickHandler);
+
+		function clickHandler() {
+			playGame();
+		}
+
+		function playGame() {
+
+			if (guessesRemaining < 1) {
+				endGame();
+			}
+
+			guessesRemaining--;
+			guessesMade++;
+			gameState = 'Guess: ' + guessesMade + ', Remaining: ' + guessesRemaining;
+
+			guess = +input.value;
+
+			if (mysteryNumber > guess) {
+				output.innerHTML = 'That\'s too low' + ' ' + gameState;
+			} else if (mysteryNumber < guess) {
+				output.innerHTML = 'That\'s too high' + ' ' + gameState;				
+			} else if (mysteryNumber === guess) {
+				gameWon = true;
+				endGame();
+			}
+
+			function endGame() {
+				if (gameWon) {
+					output.innerHTML = 'You\'ve won! It took you ' + guessesMade + ' attempts';
+				} else {
+					output.innerHTML = 'You\'ve lost! The Mystery number was ' + mysteryNumber;
+				}
+
+				return;
+			}
+		}
+	</script>
+</body>
+</html>

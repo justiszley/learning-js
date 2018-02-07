@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>delegation</title>
+</head>
+<body>
+  <div id="menu">
+    <button data-action="save">save</button>
+    <button data-action="load">load</button>
+    <button data-action="search">search</button>
+  </div>
+
+  <script>
+    function Menu(elem) {
+      this.save = function() {
+        alert('saving');
+      };
+
+      this.load = function() {
+        alert('downloading');
+      };
+
+      this.search = function() {
+        alert('searching');
+      }
+
+      const self = this;
+
+      elem.addEventListener('click', handler);
+
+      function handler(e) {
+        const target = e.target;
+        const action = target.getAttribute('data-action');
+        if (action) {
+          self[action]();
+        }
+      };
+    }
+
+    const menu = new Menu(document.getElementById('menu'));
+  </script>
+</body>
+</html>

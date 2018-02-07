@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <style>
+    #contents {
+      padding: 5px;
+      border: 1px green solid;
+    }
+  </style>
+</head>
+
+<body>
+
+  <fieldset id="contents">
+    <legend>#contents</legend>
+    <p>
+      Как насчет почитать <a target="_blank" href="http://wikipedia.org">Википедию</a>, или посетить <a target="_blank" href="http://w3.org"><i>W3.org</i></a> и узнать про современные стандарты?
+    </p>
+  </fieldset>
+
+  <script>
+    const field = document.getElementById('contents');
+
+    field.addEventListener('click', handler);
+
+    function handler(event) {
+      let target = event.target;
+      let targetName = target.tagName;
+      
+      if (targetName !== "A") {
+        do {
+          if (target === field) return;
+
+          target = target.parentNode;
+          targetName = target.tagName;
+
+        } while (targetName !== "A");
+      }
+
+      const confirmation = confirm('do you REALLY want to visit ' + target.hostname.toUpperCase());
+
+      if (!confirmation) event.preventDefault();
+    }
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,97 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <style>
+    th {
+      cursor: pointer;
+    }
+
+    th:hover {
+      background: yellow;
+    }
+  </style>
+</head>
+
+<body>
+
+  <table id="grid">
+    <thead>
+      <tr>
+        <th data-type="number">Возраст</th>
+        <th data-type="string">Имя</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>5</td>
+        <td>Вася</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>Петя</td>
+      </tr>
+      <tr>
+        <td>12</td>
+        <td>Женя</td>
+      </tr>
+      <tr>
+        <td>9</td>
+        <td>Маша</td>
+      </tr>
+      <tr>
+        <td>1</td>
+        <td>Илья</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <script>
+    const table = document.getElementById('grid');
+    let rows_arr = Array.prototype.slice.call(table.tBodies[0].rows);
+    const tbody = table.tBodies[0];
+
+    table.addEventListener('click', handler);
+
+    function handler(event) {
+      const target = event.target;
+      if (target.tagName !== 'TH') return;
+
+      const cellIndex = target.cellIndex;
+      const data_type = target.getAttribute('data-type');
+
+      let sorting_function;
+      switch (data_type) {
+        case "number": 
+          sorting_function = sorting_numbers;
+          break;
+        case "string":
+          sorting_function = sorting_strings;
+          break;
+      }
+
+      rows_arr_sorted = rows_arr.slice().sort(sorting_function);
+
+      for (let i = 0; i < rows_arr_sorted.length; i++) {
+        tbody.appendChild(rows_arr_sorted[i]);
+      }
+
+      function sorting_numbers(valA, valB) {
+        valA = +valA.cells[cellIndex].innerText;
+        valB = +valB.cells[cellIndex].innerText;
+        
+        return valA - valB;
+      }
+
+      function sorting_strings(valA, valB) {
+        valA = valA.cells[cellIndex].innerText;
+        valB = valB.cells[cellIndex].innerText;
+        
+        return valA > valB;
+      }
+    }
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <style>
+  .hidden {
+    display: none;
+  }
+
+  span {
+    cursor: pointer;
+  }
+
+  span:hover {
+    font-weight: bold;
+  }
+  </style>
+</head>
+
+<body>
+
+  <ul class="tree">
+    <li>Животные
+      <ul>
+        <li>Млекопитающие
+          <ul>
+            <li>Коровы</li>
+            <li>Ослы</li>
+            <li>Собаки</li>
+            <li>Тигры</li>
+          </ul>
+        </li>
+        <li>Другие
+          <ul>
+            <li>Змеи</li>
+            <li>Птицы</li>
+            <li>Ящерицы</li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li>Рыбы
+      <ul>
+        <li>Аквариумные
+          <ul>
+            <li>Гуппи</li>
+            <li>Скалярии</li>
+          </ul>
+
+        </li>
+        <li>Морские
+          <ul>
+            <li>Морская форель</li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+
+  <script>
+    const container = document.querySelector('.tree');
+    const liList = container.getElementsByTagName('li');
+
+    for (let item of liList) {
+      let title = item.childNodes[0];
+      let span = document.createElement('span');
+
+      title.parentNode.insertBefore(span, title);
+      span.appendChild(title);
+    }
+
+
+    container.addEventListener('click', handler);
+
+    function handler(event) {
+      const target = event.target;
+      const children = target.parentNode.children;
+
+      if (target.tagName === "SPAN" && children.length > 1) {
+        children[1].classList.toggle('hidden');
+      }
+    }
+    
+  </script>
+</body>
+
+</html>
