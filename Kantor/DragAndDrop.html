@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+
+  <style>
+    #block {
+      width: 100px;
+      height: 100px;
+      display: inline-block;
+      background-color: pink;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="block"></div>
+
+  <script>
+    const block = document.getElementById('block');
+
+    block.onmousedown = function(event) { //поймал нажатие на элементе
+
+      const coords = getCoords(block);
+      const shiftX = event.pageX - coords.left;
+      const shiftY = event.pageY - coords.top;
+
+      //подготовка к перемещению   
+      block.style.position = 'absolute';
+      // moveAt(event);
+
+      function moveAt(event) {
+        block.style.left = event.pageX - shiftX + 'px';
+        block.style.top = event.pageY - shiftY + 'px';
+      }
+
+      document.onmousemove = function(event) {
+        moveAt(event);
+      }
+
+      block.onmouseup = function() {
+        document.onmousemove = null;
+        block.onmouseup = null;
+      }
+    }
+
+    function getCoords(item) {
+      const coords = item.getBoundingClientRect();
+      return {
+        'left': coords.left + window.pageXOffset,
+        'top': coords.top + window.pageYOffset
+      }
+    }
+  </script>
+
+</body>
+
+</html>

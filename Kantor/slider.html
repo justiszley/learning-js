@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <style>
+    .slider {
+      border-radius: 5px;
+      background: #E0E0E0;
+      background: -moz-linear-gradient(left top, #E0E0E0, #EEEEEE) repeat scroll 0 0 transparent;
+      background: -webkit-gradient(linear, left top, right bottom, from(#E0E0E0), to(#EEEEEE));
+      background: linear-gradient(left top, #E0E0E0, #EEEEEE);
+      width: 310px;
+      height: 15px;
+      margin: 5px;
+    }
+
+    .thumb {
+      width: 10px;
+      height: 25px;
+      border-radius: 3px;
+      position: relative;
+      left: 10px;
+      top: -5px;
+      background: blue;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="slider" class="slider">
+    <div class="thumb"></div>
+  </div>
+
+  <script>
+    const slider = document.getElementById('slider');
+    const thumb = document.querySelector('.thumb');
+
+    thumb.addEventListener('mousedown', DragNDrop)
+
+    function DragNDrop(event) {
+      const thumbCoords = getCoords(thumb);
+      const sliderCoords = getCoords(slider);
+      console.log(thumbCoords, sliderCoords);
+
+      const shiftX = event.pageX - thumbCoords.left;
+
+      function moveAt(event) {
+        let left = event.pageX - sliderCoords.left - shiftX;
+        if (left < 0) {
+          left = 0;
+        } else if (left > (slider.offsetWidth - thumb.offsetWidth)) {
+          left = slider.offsetWidth - thumb.offsetWidth;
+        }
+        thumb.style.left = left + 'px';
+      }
+
+      document.onmousemove = function(event) {
+        moveAt(event);
+      }
+
+      document.onmouseup = function() {
+        document.onmousemove = null;
+        document.onmouseup = null;
+      }
+    }
+
+    function getCoords(elem) {
+      const coords = elem.getBoundingClientRect();
+      return {
+        'top': coords.top + pageYOffset,
+        'left': coords.left + pageXOffset
+      }
+    }
+  </script>
+
+</body>
+
+</html>
