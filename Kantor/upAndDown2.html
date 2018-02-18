@@ -1,0 +1,97 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <style>
+    body,
+    html {
+      height: 100%;
+      width: 100%;
+      padding: 0;
+      margin: 0;
+    }
+
+    #matrix {
+      width: 400px;
+      margin: auto;
+      overflow: auto;
+      text-align: justify;
+    }
+
+    #pointer::before {
+      position: fixed;
+      cursor: pointer;
+      top: 20px;
+      left: 20px;
+    }
+
+    .up::before {
+      content: "▲";
+    }
+
+    .down::before {
+      content: "▼";
+    }
+  </style>
+  <meta charset="utf-8">
+</head>
+
+<body>
+
+  <div id="matrix">
+    <script>
+      for (var i = 0; i < 2000; i++) document.writeln(i)
+    </script>
+  </div>
+  <div id="pointer"></div>
+
+  <script>
+    const pointer = document.getElementById('pointer');
+
+    pointer.addEventListener('click', pointerClick);    
+    window.addEventListener('scroll', onScroll)
+
+    let scrolled = null;
+
+    function onScroll(event) {
+      const clientHeight = document.body.clientHeight;
+      const scrollTop = pageYOffset;
+
+      switch (pointer.className) {
+        case '': 
+          if (scrollTop > clientHeight) {
+            pointer.className = 'up';
+          }
+          break;
+        case 'up': 
+          if (scrollTop < clientHeight) {
+            pointer.className = '';
+          }
+          break;
+        case 'down':
+          if (scrollTop > clientHeight) {
+            pointer.className = 'up';
+          }
+          break;
+      }      
+    }
+
+    function pointerClick(event) {
+      switch (pointer.className) {
+        case 'up':
+          this.className = 'down';
+          scrolled = pageYOffset;
+          scrollTo(0, 0);
+          break;
+        case 'down':
+          this.className = 'up';
+          scrollTo(0, scrolled);
+          break;
+      }
+    }
+
+  </script>
+</body>
+
+</html>

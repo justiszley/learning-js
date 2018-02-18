@@ -1,0 +1,91 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <style>
+    body,
+    html {
+      height: 100%;
+      width: 100%;
+      padding: 0;
+      margin: 0;
+    }
+
+    #matrix {
+      width: 400px;
+      margin: auto;
+      overflow: auto;
+      text-align: justify;
+    }
+
+    .pointer::before {
+      position: fixed;
+      cursor: pointer;
+      top: 20px;
+      left: 20px;
+    }
+
+    .up::before {
+      content: "▲";
+    }
+
+    .down::before {
+      content: "▼";
+    }
+  </style>
+  <meta charset="utf-8">
+</head>
+
+<body>
+
+  <div id="matrix">
+    <script>
+      for (var i = 0; i < 2000; i++) document.writeln(i)
+    </script>
+  </div>
+  <div class="pointer"></div>
+
+  <script>
+    const pointer = document.querySelector('.pointer');
+
+    pointer.addEventListener('click', pointerClick);    
+    window.addEventListener('scroll', onScroll)
+
+    let scrolled = null;
+
+    function onScroll(event) {
+      const clientHeight = document.body.clientHeight;
+      const scrollTop = pageYOffset;
+
+      if (scrollTop > clientHeight) {
+        pointer.classList.remove('down');
+        pointer.classList.add('up');
+      }
+
+      if (scrollTop < clientHeight) {
+        pointer.classList.remove('up');        
+      }
+    }
+
+    function pointerClick(event) {
+      const classes = pointer.classList;
+
+      if (classes.contains('up')) {
+        classes.remove('up');
+        classes.add('down');
+
+        scrolled = pageYOffset;
+        scrollTo(0, 0);
+      } else if (classes.contains('down')) {
+        classes.remove('down');
+        classes.add('up');
+
+        scrollTo(0, scrolled);
+      }
+    }
+
+  </script>
+</body>
+
+</html>
