@@ -1,19 +1,19 @@
-'use strict;'
+'use strict;';
 
 document.addEventListener('mousedown', onMouseDown);
 document.addEventListener('mousemove', onMouseMove);
-document.onmousemove = function() {
+document.onmousemove = function () {
 	return false;
-}
+};
 document.addEventListener('mouseup', onMouseUp);
 const basket = document.querySelector('.block_basket');
-basket.onclick = function() {
+basket.onclick = function () {
 	window.location.reload();
-}
+};
 
 let dragObject = {};
 
-function onMouseDown(event) {
+function onMouseDown (event) {
 	if (event.which !== 1) return;
 	
 	const elem = event.target.closest('.draggable');
@@ -24,7 +24,7 @@ function onMouseDown(event) {
 	dragObject.downY = event.pageY;
 }
 
-function onMouseMove(event) {
+function onMouseMove (event) {
 	if (!dragObject.elem) return;
 	
 	if (!dragObject.avatar) { // перенос не начат
@@ -49,7 +49,7 @@ function onMouseMove(event) {
 	dragObject.avatar.style.top = event.pageY - dragObject.shiftY + 'px';
 }
 
-function createAvatar() {
+function createAvatar () {
 	const avatar = dragObject.elem;
 	const styles = getComputedStyle(avatar);
 	const old = {
@@ -58,21 +58,21 @@ function createAvatar() {
 		position: styles.position || '',
 		left: styles.left || '',
 		top: styles.top || '',
-		zIndex: styles.zIndex || ''
-	}
+		zIndex: styles.zIndex || '',
+	};
 
-	avatar.rollback = function() {
+	avatar.rollback = function () {
 		old.parent.insertBefore(avatar, old.nextSibling);
 		avatar.style.position = old.position;
 		avatar.style.left = old.left;
 		avatar.style.top = old.top;
 		avatar.style.zIndex = old.zIndex;
-	}
+	};
 
 	return avatar;
 }
 
-function startDrag(event) {
+function startDrag (event) {
 	const avatar = dragObject.avatar;
 
 	document.body.appendChild(avatar);
@@ -80,33 +80,34 @@ function startDrag(event) {
 	avatar.style.position = 'absolute';
 }
 
-function getCoords(elem) {
+function getCoords (elem) {
 	const coords = elem.getBoundingClientRect();
 	return {
 		'top': pageYOffset + coords.top,
-		'left': pageXOffset + coords.left
-	}
+		'left': pageXOffset + coords.left,
+	};
 }
 
-function onMouseUp(event) {
+function onMouseUp (event) {
 	if (dragObject.avatar) finishDrag(event);
 
 	dragObject = {};
 }
 
-function finishDrag(event) {
+function finishDrag (event) {
 	const dropX = event.clientX;
 	const dropY = event.clientY;
 	const dropElem = findDroppable(dropX, dropY);
 
 	if (dropElem) {
 		dragObject.avatar.hidden = true;
-	} else {
+	}
+	else {
 		dragObject.avatar.rollback();
 	}
 }
 
-function findDroppable(dropX, dropY) {
+function findDroppable (dropX, dropY) {
 	dragObject.avatar.hidden = true;
 	const elem = document.elementFromPoint(dropX, dropY);
 	dragObject.avatar.hidden = false;
