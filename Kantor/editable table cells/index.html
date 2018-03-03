@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+  </head>
+  <body>
+    <h1 class="head">Калькулятор процентов, из расчёта 12% годовых.</h1>
+
+    <form>
+      <label>Сумма <input id="sum" type="text" name="sum" value="10000"></label>
+
+      <label>Срок в месяцах
+        <select name="months">
+          <option value="3">3 (минимум)</option>
+          <option value="6">6 (полгода)</option>
+          <option value="12" selected>12 (год)</option>
+          <option value="18">18 (1.5 года)</option>
+          <option value="24">24 (2 года)</option>
+          <option value="30">30 (2.5 года)</option>
+          <option value="36">36 (3 года)</option>
+        </select>
+      </label>
+
+      <label>С капитализацией <input type="checkbox" name="capitalization"></label>
+    </form> 
+
+    <div class="output_container">
+      <div class="before">
+        <h2>Было</h2>
+        <div class="output before_output">123</div>
+        <div class="diagram before_diagram" style="height: 100px"></div>
+      </div>
+
+      <div class="after">
+        <h2>Станет</h2>
+        <div class="output after_output">123</div>
+        <div class="diagram after_diagram" style="height: 0px"></div>
+      </div>
+    </div>
+
+    <!-- <script src="script.js"></script> -->
+  </body>
+</html>
