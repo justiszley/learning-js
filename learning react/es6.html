@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+
+	<script>
+
+// Шаблоны строк
+		const a = 'hello';
+		const b = 'world';
+		const c = 'yos';
+
+		console.log(`${a}, ${b}, ${c}`);
+		console.log(`${a}, ${b}
+${c}`);
+		console.log(`${a}, ${b}  ну и странная и клёвая штука   ${c}`);
+
+
+console.log("");
+//Аргументы по умолчанию и стрелочные функции
+		const func = (a='bat', b='man') => a+b;
+		console.log(func());
+
+console.log("");
+// Destructuring assignment
+
+		const person = {
+			firstName: 'Nicolas',
+			lastName: 'Zacas'
+		}
+
+		const myDog = {
+			name: 'Nora'
+		}
+
+		const call = ({firstName='person'}) => `${firstName}, Hi!`;
+		console.log(call(person));
+		console.log(call(myDog));
+
+console.log("");
+// Object literal Enhancement
+
+		function greetMyDog() {
+			return `${this.a} ${this.myDog.name}`;
+		}
+
+		// this = window - отстой!
+		// const greetMyDog = () => console.log(this);
+		const obj = {a, b, c, person, myDog, greetMyDog}
+		console.log(obj);
+		console.log(obj.greetMyDog());
+
+console.log("");
+// The spread operator
+
+		const arr1 = [1, 2 ,3];
+		const arr2 = [4, 5, 6];
+		const arr3 = [...arr1, ...arr2];
+		console.log(arr3);
+
+		const basics = {
+			'first': 'HTML',
+			'second': 'CSS'
+		}
+		const js = 'JavaScript';
+		const frontender = {...basics, js};
+		console.log(frontender);
+
+	</script>
+	</body>
+</html>	

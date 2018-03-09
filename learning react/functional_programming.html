@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+<script>
+	// function insideFn(logger) {
+	// 	logger('yos');
+	// }
+
+	// insideFn(function(message) {
+	// 	console.log(message + 'man');
+	// })
+
+
+	const insideFn = logger => logger('yos');
+	insideFn(message => console.log(message + 'man'));
+
+
+	let list = [
+		{ 
+			title: 'Rad Red',
+			id: '-fje3',
+			rating: 5
+		},
+		{ 
+			title: 'Lawn',
+			id: '-di82hf',
+			rating: 7
+		},
+		{ 
+			title: 'Party Pink',
+			id: '-wod98f',
+			rating: 2
+		}
+	]
+
+	const hashList = list.reduce((hash, {title, id, rating}) => {
+			hash[id] = {title, rating};
+			return hash;
+		}, {});
+	console.log(hashList);
+
+// high-level functions
+	const colors = ['red', 'green', 'blue', 'green', 'orange', 'red'];
+
+	const uniqueColors = colors.reduce((array, value) => {
+		if (array.indexOf(value) !== -1) return array;
+		else return [...array, value];
+	}, [])
+
+	// initial array has not changed
+	console.log(colors, uniqueColors);
+
+
+// recursion
+
+	const recursion = (value, fn) => {
+		fn(value);
+		if (value > 0) recursion(value - 1, fn);
+	}
+
+	// recursion(10, value => console.log(value))
+
+
+	const delayedRecursion = (value, fn, delay = 1000) => {
+		fn(value);
+		return (value > 0) ?
+			setTimeout(() => delayedRecursion(value-1, fn, delay), delay) : 
+			value
+	}
+
+	const log = value => console.log(value);
+	// delayedRecursion(10, log, 500)
+
+
+	const deepPick = (route, object = {}) => {
+		const [first, ...remaining] = route.split('.');
+		return (remaining.length) ?
+			deepPick(remaining.join('.'), object[first]):
+			object[first]
+	}
+
+	const dan = {
+		type: 'person',
+		data: {
+			gender: 'male',
+			info: {
+				id: 22,
+				fullname: {
+					first: 'Dan',
+					second: 'Deacon'
+				}
+			}
+		}
+	}
+
+	console.log(deepPick('type', dan));
+	console.log(deepPick('data.gender', dan));
+	console.log(deepPick('data.info.id', dan));
+</script>
+</body>
+</html>
