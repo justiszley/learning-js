@@ -1,9 +1,9 @@
 document.body.addEventListener('mousedown', onMouseDown);
-document.body.ondragstart = function() {
+document.body.ondragstart = function () {
 	return false;
-}
+};
 
-function onMouseDown(event) {
+function onMouseDown (event) {
 	event.preventDefault();
 	const target = event.target;
 	if (!target.classList.contains('draggable')) return;
@@ -15,19 +15,19 @@ function onMouseDown(event) {
 
 	target.style.position = 'fixed';
 
-	window.onmousemove = function(event) {
+	window.onmousemove = function (event) {
 		moveAt(event);
-	}
+	};
 
-	target.onmouseup = function() {
+	target.onmouseup = function () {
 		target.style.top = parseInt(target.style.top) + pageYOffset + 'px';
 		target.style.position = 'absolute';
 
 		window.onmousemove = null;
 		target.onmouseup = null;
-	}
+	};
 
-	function moveAt(event) {
+	function moveAt (event) {
 		let top = event.clientY - shiftY;
 		let left = event.clientX - shiftX;
 		const rightEdge = document.documentElement.clientWidth - target.offsetWidth;
@@ -35,14 +35,16 @@ function onMouseDown(event) {
 
 		if (left > rightEdge) {
 			left = rightEdge;
-		} else if (left < 0) {
+		}
+		else if (left < 0) {
 			left = 0;
 		}
 
 		if (top > bottomEdge) {
 			top = bottomEdge;
 			window.scrollBy(0, 10);
-		} else if (top < 0) {
+		}
+		else if (top < 0) {
 			top = 0;
 			window.scrollBy(0, -10);
 		}
